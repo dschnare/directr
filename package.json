@@ -1,0 +1,26 @@
+{
+  "name": "directr",
+  "private": true,
+  "version": "1.0.0",
+  "keywords": [
+    "directive",
+    "directives",
+    "processing",
+    "processor",
+    "AMD",
+    "CommonJS",
+    "ES6",
+    "JSX",
+    "TSX",
+    "TypeScript"
+  ],
+  "description": "directr is a JavaScript directive processor command line tool and library.",
+  "dependencies": {
+    "typescript": "^2.0.0"
+  },
+  "main": "./index.js",
+  "bin": {
+    "directr": "./bin/directr"
+  },
+  "scripts": {}
+}
