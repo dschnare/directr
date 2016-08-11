@@ -1,6 +1,6 @@
 {
   "name": "directr",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "keywords": [
     "directive",
     "directives",
@@ -14,6 +14,7 @@
     "TypeScript"
   ],
   "description": "directr is a JavaScript directive processor command line tool and library.",
+  "author": "Darren Schnare <schnare.d@gmail.com>",
   "dependencies": {
     "typescript": "^2.0.0"
   },
