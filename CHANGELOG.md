@@ -1,3 +1,13 @@
+# 1.1.0
+
+*August 11, 2016*
+
+- Add index, line and position to the directive object when a directive is
+  encountered. This provides the capability to processors to find the exact
+  location within a file where the directive was found.
+- Add support for block-syntax for directives that only support a single
+  Object or Array literal parameter.
+
 # 1.0.2
 
 *August 11, 2016*

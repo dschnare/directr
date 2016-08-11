@@ -30,7 +30,24 @@ array literal, or a global reference.
     // @myDirective null undefined 34.4 false "text with spaces"
     // @otherDirective word String { name: 'object literal', list: [1,2,3] } [ { name: 'array literal' } ]
 
-The following globals are available to be referenced in Object or Array literals or as a plain reference.
+For directives that only accept a single Object or Array literal there is an
+alternate block-syntax that can be used.
+
+    /* @{directiveName}
+    Object or Array literal
+    */
+
+Example:
+
+    /* @myDirective
+    {
+      name: 'object literal',
+      list: [1, 2, 3, 4]
+    }
+    */
+
+The following globals are available to be referenced in Object or Array
+literals or as a plain reference.
 
 - String
 - Array
@@ -41,7 +58,8 @@ The following globals are available to be referenced in Object or Array literals
 - JSON
 - RegExp
 
-When passing an Object or Array literal the following symbols/characters are illegal.
+When passing an Object or Array literal the following symbols/characters are
+illegal.
 
 - new
 - this
@@ -57,6 +75,9 @@ into objects that look like this.
     {
       name: '@directiveName',
       params: [param1, param2, ...],
+      index: 0-based-index,
+      line: 1-based-number,
+      position: 1-based-character-position,
       file: { name: filePath, text: fileText }
     }
 
