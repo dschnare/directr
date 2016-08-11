@@ -173,6 +173,11 @@ overridden to ensure this happens.
 - *noEmit* Always set to `true`
 - *allowJs* Defaults to `true` if not specified
 - *listFiles* Always set to `false`
+- *watch* Always set to `false`
+- *sourceMap* Always set to `false`
+- *inlineSourceMap* Always set to `false`
+- *outDir* Always set to `null`
+- *outFile* Always set to `null`
 
 *NOTE: If you do not want to have TypeScript infer your dependencies then set
 the `compilerOptions` config setting to `false`.*
