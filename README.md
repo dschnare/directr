@@ -17,29 +17,36 @@
 
 Directives are special JavaScript comments of the form:
 
-    // @{directiveName} [space separated params...]
+    // @@{directiveName} [space separated params...]
 
 Example:
 
-    // @myDirective 34 "param2 text"
+    // @@myDirective 34 "param2 text"
+
+Directive names can contain alphanumeric (`a-z0-9)`, underscore (`_`),
+colon (`:`) or dollar (`$`) characters.
+
+Example:
+
+    // @@namespace:Directive 34 "param2 text"
 
 Directive parameters can be a null, undefined, number, boolean, single or
 double quoted string, unquoted single word string, an object literal or an
 array literal, or a global reference.
 
-    // @myDirective null undefined 34.4 false "text with spaces"
-    // @otherDirective word String { name: 'object literal', list: [1,2,3] } [ { name: 'array literal' } ]
+    // @@myDirective null undefined 34.4 false "text with spaces"
+    // @@otherDirective word String { name: 'object literal', list: [1,2,3] } [ { name: 'array literal' } ]
 
 For directives that only accept a single Object or Array literal there is an
 alternate block-syntax that can be used.
 
-    /* @{directiveName}
+    /* @@{directiveName}
     Object or Array literal
     */
 
 Example:
 
-    /* @myDirective
+    /* @@myDirective
     {
       name: 'object literal',
       list: [1, 2, 3, 4]
@@ -69,11 +76,14 @@ illegal.
 - `--`
 - the following characters: `=()`
 
+
+# Directive Processors
+
 **directr** recognizes these comments in your source files and will parse them
 into objects that look like this.
 
     {
-      name: '@directiveName',
+      name: '@@directiveName',
       params: [param1, param2, ...],
       index: 0-based-index,
       line: 1-based-number,
@@ -87,8 +97,8 @@ configure the processors using a JSON file, typically with the name
 
     {
       "directiveProcessors": {
-        "@myDirective": "./path/relative/to/directiveconfig.json",
-        "@other": "topLevelNodeModule"
+        "@@myDirective": "./path/relative/to/directiveconfig.json",
+        "@@other": "topLevelNodeModule"
       }
     }
 
@@ -108,7 +118,7 @@ passed to the processor. You do this by setting the `context` config setting.
 
     {
       "directiveProcessors": {
-        "@myDirective": {
+        "@@myDirective": {
           "module": "./path/relative/to/config",
           "context": {
             "property1": 45
@@ -121,7 +131,7 @@ Contexts in the config will be merged with the top-level context.
 
     {
       "directiveProcessors": {
-        "@myDirective": {
+        "@@myDirective": {
           "module": "./path/relative/to/directiveconfig.json",
           "context": {
             "property1": 45
@@ -140,6 +150,32 @@ The resulting context object passed to the loaded processor module would be:
       description: "this is the top-level context"
     }
 
+Additionally, any string of the form `${propertyName}` will be recursively
+expanded to the property's value, using the merged context as the scope.
+
+    {
+      "directiveProcessors": {
+        "@@myDirective": {
+          "module": "./path/relative/to/directiveconfig.json",
+          "context": {
+            "someFileName": "${webroot}/somedir/out.js"
+          }
+        }
+      },
+      "context": {
+        "root": ".."
+        "webroot": "${root}/wwwroot"
+      }
+    }
+
+The resulting context object passed to the loaded processor module would be:
+
+    {
+      someFileName: "../wwwroot/somedir/out.js",
+      webroot: "../wwwroot"
+      root: ".."
+    }
+
 Directive processors are just modules that export a function with the following
 signature.
 
@@ -152,14 +188,14 @@ complete.
 
     // directives/hello.js
     module.exports = function helloProcessor (directive, context, done) {
-      console.log('found @hello directive in file:', directive.file.name)
+      console.log('found @@hello directive in file:', directive.file.name)
       done()
     }
 
     // directiveconfig.json
     {
       "directiveProcessors": {
-        "@hello": "./directives/hello"
+        "@@hello": "./directives/hello"
       }
     }
 
@@ -177,7 +213,7 @@ syntax. The TypeScript compiler can have options passed to it via the
     {
       "compilerOptions": "./jsconfig.json",
       "directiveProcessors": {
-        "@hello": "./directives/hello"
+        "@@hello": "./directives/hello"
       }
     }
 
@@ -264,12 +300,12 @@ Example:
     var baseDir = process.cwd()
     var topLevelContext = {}
     var directiveProcessors = {
-      '@hello': './directives/hello',
-      '@other': function (directive, context, done) {
+      '@@hello': './directives/hello',
+      '@@other': function (directive, context, done) {
         // TODO: implement
         done()
       },
-      '@something': {
+      '@@something': {
         module: function (directive, context, done) {
           // TODO: implement
           done()
