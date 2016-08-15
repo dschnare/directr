@@ -1,3 +1,11 @@
+# 2.1.1
+
+*August 15, 2016*
+
+Resolve misleading description for directiveProcessors properties.
+The description now correctly states that all directive names must
+start with '@@'.
+
 # 2.1.0
 
 *August 15, 2016*
