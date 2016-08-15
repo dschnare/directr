@@ -263,12 +263,16 @@ Now you'll get inline completion and code hints as you type.
 
 # Programmatic API
 
+**readDirectivesFromText()**
+
 `readDirectivesFromText(text)`
 
 Reads the directives from the specified text string. Returns an array of
 objects of the form:
 
     { name, params: [param1, param2] }
+
+**readDirectivesFromFiles()**
 
 `readDirectivesFromFiles(fileNames, callback)`
 
@@ -278,6 +282,8 @@ following form as the second arguemnt to `callback` on success.
 
     { name, params: [param1, param2], file: { name, text } }
 
+**inferDependencies()**
+
 `inferDependencies(fileNames, compilerOptions, [baseDir])`
 
 Infers module dependencies from each specified file name, taking care of
@@ -286,6 +292,8 @@ compiler config file or an object with compiler options defined. If the
 `compilerOptions` is a string then it is treated as though it were relative
 to `baseDir`. If `baseDir` is not specified then `process.cwd()` is its default
 value.
+
+**processDirectives()**
 
 `processDirectives(directives, processorMap, context, callback, [baseDir])`
 
@@ -328,6 +336,8 @@ Example:
       }, baseDir)
     })
 
+**directr()**
+
 `directr(sourceFiles, configPathOrConfig, callback)`
 
 Attempts to process the directives in the specified source files and their
@@ -336,8 +346,8 @@ to load or a config object (same properties supported by the config JSON file.)
 
 Example:
 
-var directr = require('directr').directr
+    var directr = require('directr').directr
 
-directr(['src/app.js'], 'src/directiveconfig.json', function (error) {
-  if (error) console.error(error.stack)
-})
+    directr(['src/app.js'], 'src/directiveconfig.json', function (error) {
+      if (error) console.error(error.stack)
+    })
