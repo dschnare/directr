@@ -127,13 +127,17 @@ passed to the processor. You do this by setting the `context` config setting.
       }
     }
 
-Contexts in the config will be merged with the top-level context.
+Contexts in the config will be merged with the top-level context. The top-level
+context always has a `project` property that is set to the directory containing
+the loaded config file or the current working directory if the config was
+specified via code.
 
     {
       "directiveProcessors": {
         "@@myDirective": {
           "module": "./path/relative/to/directiveconfig.json",
           "context": {
+            "somePath": "${project}/files/file.js',
             "property1": 45
           }
         }
@@ -146,6 +150,8 @@ Contexts in the config will be merged with the top-level context.
 The resulting context object passed to the loaded processor module would be:
 
     {
+      project: 'path/to/config/dir',
+      somePath: 'path/to/config/dir/files/file.js',
       property1: 45,
       description: "this is the top-level context"
     }
@@ -171,6 +177,7 @@ expanded to the property's value, using the merged context as the scope.
 The resulting context object passed to the loaded processor module would be:
 
     {
+      project: 'path/to/config/dir',
       someFileName: "../wwwroot/somedir/out.js",
       webroot: "../wwwroot"
       root: ".."
@@ -320,3 +327,17 @@ Example:
         if (error) throw error
       }, baseDir)
     })
+
+`directr(sourceFiles, configPathOrConfig, callback)`
+
+Attempts to process the directives in the specified source files and their
+dependencies. Where `configPathOrConfig` can be a path to the config file
+to load or a config object (same properties supported by the config JSON file.)
+
+Example:
+
+var directr = require('directr').directr
+
+directr(['src/app.js'], 'src/directiveconfig.json', function (error) {
+  if (error) console.error(error.stack)
+})

@@ -1,3 +1,14 @@
+# 2.1.0
+
+*August 15, 2016*
+
+Add `directr()` export. This makes it easier to mimic the config loading
+behaviour exhibited by the `directr` command line tool.
+
+Add the `project` property to the top-level context. This makes it possible to
+specify file paths in the context that are always relative to the config file
+instead of the current working directory.
+
 # 2.0.0
 
 *August 15, 2016*
