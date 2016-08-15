@@ -46,7 +46,7 @@
         "directiveProcessors": {
           "type": "object",
           "additionalProperties": false,
-          "description": "The map of directive processors. All directive names must begin with '@' and map to a string or { module, context }.",
+          "description": "The map of directive processors. All directive names must begin with '@@' and map to a string or { module, context }.",
           "patternProperties": {
             "^@[a-z]": {
               "anyOf": [
