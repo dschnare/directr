@@ -1,3 +1,11 @@
+# 2.1.3
+
+*August 15, 2016*
+
+Resolve incorrect direcrive name pattern in JSON schema. The directive name
+pattern now supports '_' characters and correctly matches the full property
+name.
+
 # 2.1.2
 
 *August 15, 2016*

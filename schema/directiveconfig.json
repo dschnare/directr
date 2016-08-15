@@ -48,7 +48,7 @@
           "additionalProperties": false,
           "description": "The map of directive processors. All directive names must begin with '@@' and map to a string or { module, context }.",
           "patternProperties": {
-            "^@@[a-z0-9:$]": {
+            "^@@[a-z0-9:$_]+$": {
               "anyOf": [
                 { "type": "string" },
                 { "$ref": "#/definitions/directiveProcessorDefinition" }
