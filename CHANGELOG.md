@@ -1,3 +1,10 @@
+# 2.1.2
+
+*August 15, 2016*
+
+Resolve incorrect direcrive name pattern in JSON schema. The directive name
+pattern now supports '0-9', ':' and '$' characters and must start with '@@'.
+
 # 2.1.1
 
 *August 15, 2016*
